@@ -20,9 +20,11 @@ export const SignIn = () => {
         
         try{
             const response = await axios.post("http://localhost:8002/auth/sign-in", formData)
+            console.log(formData, response.data);
             localStorage.setItem("token", response.data.token)
         } catch (error){
             console.error('Ошибка при отправке формы:', error);
+            console.log(formData)
         } 
         // You can add further logic like sending data to API, etc.
     };
