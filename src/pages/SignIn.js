@@ -3,12 +3,15 @@ import Header from '../components/Header';
 import { Grid, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 
 export const SignIn = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -22,11 +25,15 @@ export const SignIn = () => {
             const response = await axios.post("http://localhost:8002/auth/sign-in", formData)
             console.log(formData, response.data);
             localStorage.setItem("token", response.data.token)
+            if (response.data.role == "admin"){
+                navigate("/admin/add")
+            } else{
+                navigate("/")
+            }
         } catch (error){
             console.error('Ошибка при отправке формы:', error);
             console.log(formData)
         } 
-        // You can add further logic like sending data to API, etc.
     };
 
     return (

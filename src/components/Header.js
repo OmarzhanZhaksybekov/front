@@ -4,6 +4,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
 function Header() {
+
+  LogOut = () => {
+    localStorage.removeItem("token")
+  }
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -21,6 +26,7 @@ function Header() {
         </Typography>
         <Button color="inherit" component={Link} to={"/"}>Home</Button>
         <Button color="inherit" component={Link} to={"/sign-in"}>Log In</Button>
+        <Button color="inherit" component={Link} to={"/"} onclick={LogOut}>Log Out</Button>
         <Button color="inherit" component={Link} to={"/contacts"}>Contact</Button>
       </Toolbar>
     </AppBar>
