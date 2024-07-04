@@ -62,5 +62,3 @@ function CarDetail() {
 }
 
 export default CarDetail;
-
-

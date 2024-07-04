@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography } from '@mui/material';
 import AdminHeader from '../components/AdminHeader';
+import { useNavigate } from 'react-router-dom';
 
 const AddCar = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ const AddCar = () => {
         color: '',
         description: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -41,7 +44,11 @@ const AddCar = () => {
             });
             const data = await response.json();
             console.log('Ответ сервера:', data);
-            // Дополнительная логика после успешного ответа от сервера
+            if (response.status == 200){
+                navigate("/")
+            } else{
+                alert("something went wrong")
+            }
         } catch (error) {
             console.error('Ошибка при отправке формы:', error);
             // Обработка ошибок при отправке

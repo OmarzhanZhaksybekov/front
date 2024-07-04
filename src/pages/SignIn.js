@@ -27,12 +27,13 @@ export const SignIn = () => {
             localStorage.setItem("token", response.data.token)
             if (response.data.role == "admin"){
                 navigate("/admin/add")
-            } else{
+            } else if (response.data.role == "user"){
                 navigate("/")
             }
         } catch (error){
             console.error('Ошибка при отправке формы:', error);
             console.log(formData)
+            alert("wrong creds")
         } 
     };
 

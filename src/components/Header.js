@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
 
-  LogOut = () => {
+  function LogOut(){
     localStorage.removeItem("token")
   }
 

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, Link } from '@mui/material';
 import axios from 'axios';
 import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ const SignUp = () => {
         phone: '',
         password: ''
     });
+    
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -22,10 +25,10 @@ const SignUp = () => {
         try {
             const response = await axios.post('http://localhost:8002/auth/sign-up', formData);
             console.log('Ответ сервера:', response.data);
-            // Дополнительная логика после успешного ответа от сервера
+            navigate("/sign-in")
         } catch (error) {
             console.error('Ошибка при отправке формы:', error);
-            // Обработка ошибок при отправке
+            alert("something went wrong")
         }
     };
 
