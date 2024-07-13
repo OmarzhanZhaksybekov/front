@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { Grid } from '@mui/material';
 import CarCard from '../components/CarCard';
+import Footer from '../components/Footer';
 
 export const Home = () => {
 
@@ -28,6 +29,7 @@ export const Home = () => {
             <CarCard key={car.id} car={car} />
           ))}
         </Grid>
+        <Footer></Footer>
     </div>
   )
 }

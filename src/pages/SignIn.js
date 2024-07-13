@@ -1,9 +1,9 @@
 import React from 'react'
 import Header from '../components/Header';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button, Link } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
 export const SignIn = () => {
     const [formData, setFormData] = useState({
@@ -25,11 +25,8 @@ export const SignIn = () => {
             const response = await axios.post("http://localhost:8002/auth/sign-in", formData)
             console.log(formData, response.data);
             localStorage.setItem("token", response.data.token)
-            if (response.data.role == "admin"){
-                navigate("/admin/add")
-            } else if (response.data.role == "user"){
-                navigate("/")
-            }
+            localStorage.setItem("role", response.data.role)
+            navigate("/")
         } catch (error){
             console.error('Ошибка при отправке формы:', error);
             console.log(formData)
@@ -40,6 +37,12 @@ export const SignIn = () => {
     return (
         <div>
             <Header></Header>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z" fill="#1976d2"/>
+                </svg>
+                <span style={{fontSize: '20px', fontWeight: 'bold'}}>Log in</span>
+            </div>
             <form onSubmit={handleSubmit} style={{width: '30%', margin: '0 auto', padding: '10px'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -68,7 +71,9 @@ export const SignIn = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <a href='/sign-up'>Dont have an account</a>
+                        <Link href="/sign-up" variant="body2">
+                            Нету аккаунта? Зарегистрироваться
+                        </Link>
                         <Button
                             type="submit"
                             fullWidth

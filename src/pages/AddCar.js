@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography } from '@mui/material';
 import AdminHeader from '../components/AdminHeader';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const AddCar = () => {
     const [formData, setFormData] = useState({

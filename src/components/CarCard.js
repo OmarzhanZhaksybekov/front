@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function CarCard({ car }) {
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: "10px" }}>
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: "10px", borderRadius: "20px", width: '300px' }}>
       <CardMedia
         component="img"
         height="140"

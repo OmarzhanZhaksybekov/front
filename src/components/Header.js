@@ -1,32 +1,33 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
 
-  function LogOut(){
-    localStorage.removeItem("token")
+  const navigate = useNavigate()
+
+  // Функция для выхода из системы
+  function LogOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");  // Удаляем роль из localStorage при выходе
+    navigate("/")
   }
+
+  // Получение роли пользователя из localStorage
+  const role = localStorage.getItem("role");
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component={Link} to={"/"} sx={{ flexGrow: 1, textDecoration: 'none', color: 'white' }}>
           DNO.kz
         </Typography>
-        <Button color="inherit" component={Link} to={"/"}>Home</Button>
+        {/* Условное отображение кнопки "Admin Panel" */}
+        {role === 'admin' && (
+          <Button color='inherit' component={Link} to={"/admin/add"}>Admin Panel</Button>
+        )}
         <Button color="inherit" component={Link} to={"/sign-in"}>Log In</Button>
-        <Button color="inherit" component={Link} to={"/"} onclick={LogOut}>Log Out</Button>
+        <Button color="inherit" component={Link} to={"/"} onClick={LogOut}>Log Out</Button>
         <Button color="inherit" component={Link} to={"/contacts"}>Contact</Button>
       </Toolbar>
     </AppBar>
